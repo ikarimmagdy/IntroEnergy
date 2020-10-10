@@ -1,4 +1,4 @@
-[
+{[
     {"id": "1",
       "createdOn": "10.9.2020",
       "amout": "1,200.00",
@@ -11,4 +11,4 @@
       "currency": "EGPbbb",
       "type": "Cash"
     }
-  ]
+  ]}
