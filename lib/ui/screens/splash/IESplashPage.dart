@@ -18,7 +18,7 @@ class _SplashScreenState extends State<IESplashPage> {
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed(Routes.dashboard);
+    Navigator.of(context).pushReplacementNamed(Routes.login);
   }
 
   @override
