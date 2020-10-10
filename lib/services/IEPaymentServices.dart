@@ -1,8 +1,15 @@
+import 'package:http/http.dart';
+
+import '../network/IENetworkConstants.dart';
+
 class IEPaymentServices{
 
   Future getProjectDetails() async {
-    var result = await http.get('https://getProjectList');
+    String url = 'https://jsonplaceholder.typicode.com/posts';
+    var result = await http.get(url);
     return result;
   }
 
 }
+
+
