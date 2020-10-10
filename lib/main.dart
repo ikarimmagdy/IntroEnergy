@@ -5,6 +5,7 @@ import 'package:intro_energy/ui/screens/dashboard/IEDashboardPage.dart';
 import 'package:intro_energy/ui/screens/history/IEHistoryPage.dart';
 import 'package:intro_energy/ui/screens/meters/IEMetersPage.dart';
 import 'package:intro_energy/ui/screens/payment/IEPaymentsPage.dart';
+import 'package:intro_energy/ui/screens/splash/IESplashPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,13 +21,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: IEDashboardPage(),
+      home: IESplashPage(),
       routes:  {
         Routes.dashboard: (context) => IEDashboardPage(),
         Routes.meters: (context) => IEMetersPage(),
         Routes.payments: (context) => IEPaymentsPage(),
         Routes.consumptions: (context) => IEConsumptionsPage(),
         Routes.history: (context) => IEHistoryPage(),
+        Routes.splash: (context) => IESplashPage(),
       },
     );
   }
