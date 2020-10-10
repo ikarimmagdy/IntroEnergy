@@ -1,0 +1,17 @@
+{
+  "data":[
+    {"id": "1",
+      "createdOn": "10.9.2020",
+      "amout": "1,200.00",
+      "currency": "EGP",
+      "type": "Online"
+    },
+    {"id": "2",
+      "createdOn": "10.9.2020",
+      "amout": "1,200.00",
+      "currency": "EGP",
+      "type": "Cash"
+    }
+  ]
+
+}
