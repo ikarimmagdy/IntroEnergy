@@ -28,8 +28,8 @@ class _DashboardPageState extends State<IEDashboardPage> {
 
   Widget _createCard({String title, String value, String unit}) {
     return SizedBox(
-      height: 100,
-      width: 195,
+      height: 75,
+      width: (MediaQuery.of(context).size.width/2)-10,
       child: Card(
         elevation: 1,
         child: Padding(
@@ -70,7 +70,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.lightGreen,
-                                          fontSize: 20),
+                                          fontSize: 15),
                                     )),
                               ),
                               Padding(
@@ -82,7 +82,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.lightGreen,
-                                          fontSize: 24),
+                                          fontSize: 20),
                                     )),
                               )
                             ],
@@ -120,10 +120,10 @@ class _DashboardPageState extends State<IEDashboardPage> {
 
   Widget _createPaymentList() {
     return SizedBox(
-      height: 220,
+      height: 170,
       width: 400,
       child: Column(children: [
-        _createTitle("Latest Payments"),
+
         _createHeader("#", "Date", "Amount EGP", "Type"),
         Divider(
           height: 1,
@@ -161,42 +161,27 @@ class _DashboardPageState extends State<IEDashboardPage> {
 
   Widget _createtConsumpionList() {
     return SizedBox(
-      height: 250,
+      height: (MediaQuery.of(context).size.height/2),
       width: 400,
       child: Column(
         children: [
-          _createTitle("Latest Consumptions"),
-          _createHeader("#", "Date", "Consumption", "Consumption"),
-          Divider(
-            height: 1,
-            thickness: 1,
-          ),
+          //_createHeader("#", "Date", "Consumption", "Consumption"),
+          // Divider(
+          //   height: 1,
+          //   thickness: 1,
+          // ),
           FutureBuilder<List<Consumption>>(
             future: getConsumptionList(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return SizedBox(
-                  height: 500,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => Divider(
-                        color: Colors.black,
-                      ),
+                return ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         Consumption consumption = snapshot.data[index];
-                        return _createPaymentRow(
-                            consumption.id,
-                            consumption.createdOn,
-                            consumption.consumption,
-                            consumption.amout);
+                        return _createCard2(consumption.id,consumption.createdOn,consumption.amout,consumption.consumption);
                       },
-                    ),
-                  ),
                 );
-                ;
               } else if (snapshot.hasError) {
                 return new Text("${snapshot.error}");
               }
@@ -221,15 +206,20 @@ class _DashboardPageState extends State<IEDashboardPage> {
   }
 
   Widget _createBody() {
-    return SingleChildScrollView(
-      child: Column(children: [
-        _createTitle("Meter Info"),
-        _createMeterInfo(),
-        _createBalance(),
-        _createPaymentList(),
-        _createTarrif(),
-        _createtConsumpionList()
-      ]),
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: SingleChildScrollView(
+        child: Column(children: [
+          _createTitle("Meter Info"),
+          _createMeterInfo(),
+          _createTitle("Latest Payments"),
+          _createBalance(),
+          _createPaymentList(),
+          _createTitle("Latest Consumptions"),
+          _createTarrif(),
+          _createtConsumpionList()
+        ]),
+      ),
     );
   }
 
@@ -242,11 +232,12 @@ class _DashboardPageState extends State<IEDashboardPage> {
 
   Widget _createTitle(String title) {
     return Container(
+      height: 30,
       color: Colors.black12,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+        padding: EdgeInsets.fromLTRB(0,0,5,0),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Icon(Icons.payment),
+          Padding(padding: EdgeInsets.all(5), child: Icon(Icons.payment)),
           Text(
             title,
             style: TextStyle(
@@ -261,7 +252,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
 
   Widget _createPaymentFooter(String title) {
     return Container(
-      color: Colors.black12,
+      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.fromLTRB(1, 1, 15, 1),
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -290,21 +281,21 @@ class _DashboardPageState extends State<IEDashboardPage> {
         Text(
           title1,
           style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15),
+              fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 15),
         ),
         Text(
           title2,
           style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15),
+              fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 15),
         ),
         Text(title3,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.black54,
                 fontSize: 15)),
         Text(title4,
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15))
+                fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 15))
       ]),
     );
   }
@@ -354,3 +345,49 @@ class _DashboardPageState extends State<IEDashboardPage> {
         children: [Text(val1), Text(val2), Text(val3), Text(val4)]);
   }
 } //end of class.
+Widget _createCard2(String val1, String val2, String val3, String val4) {
+  return Card(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children:
+          [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text("Date: ",style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black26,
+                  fontSize: 18),
+              ),
+              Text("Consumtion:",style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black26,
+                  fontSize: 18)),
+              Text("Reading:",style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black26,
+                  fontSize: 18)),
+            ],),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(val2,style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.green,
+                  fontSize: 18),
+              ),
+              Text(val3,style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.blueAccent,
+                  fontSize: 18)),
+              Text(val4,style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.red,
+                  fontSize: 18)),
+            ],),
+          ],),
+      )
+  );
+}

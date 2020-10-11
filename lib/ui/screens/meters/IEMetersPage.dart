@@ -48,6 +48,11 @@ class _IEMetersPageState extends State<IEMetersPage> {
         ],),
       ),
     );
-    
+
   }
+
+  Widget _buildIcon(){
+    return Icon(Icons.ac_unit);
+  }
+
 }
