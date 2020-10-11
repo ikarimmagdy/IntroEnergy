@@ -124,7 +124,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
       width: 400,
       child: Column(children: [
         _createTitle("Latest Payments"),
-        _createHeader("#","Date","Amount EGP","Type"),
+        _createHeader("#", "Date", "Amount EGP", "Type"),
         Divider(
           height: 1,
           thickness: 1,
@@ -166,7 +166,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
       child: Column(
         children: [
           _createTitle("Latest Consumptions"),
-          _createHeader("#","Date","Consumption","Consumption"),
+          _createHeader("#", "Date", "Consumption", "Consumption"),
           Divider(
             height: 1,
             thickness: 1,
@@ -177,7 +177,8 @@ class _DashboardPageState extends State<IEDashboardPage> {
               if (snapshot.hasData) {
                 return SizedBox(
                   height: 500,
-                  child: Padding(padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
                     child: ListView.separated(
                       separatorBuilder: (context, index) => Divider(
                         color: Colors.black,
@@ -222,6 +223,8 @@ class _DashboardPageState extends State<IEDashboardPage> {
   Widget _createBody() {
     return SingleChildScrollView(
       child: Column(children: [
+        _createTitle("Meter Info"),
+        _createMeterInfo(),
         _createBalance(),
         _createPaymentList(),
         _createTarrif(),
@@ -266,20 +269,21 @@ class _DashboardPageState extends State<IEDashboardPage> {
             height: 30,
             child: RaisedButton(
                 onPressed: () {},
-                child:Text(
-              title,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 15),
-            )),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 15),
+                )),
           ),
         ]),
       ),
     );
   }
 
-  Widget _createHeader(String title1,String title2,String title3,String title4) {
+  Widget _createHeader(
+      String title1, String title2, String title3, String title4) {
     return Padding(
       padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -303,6 +307,45 @@ class _DashboardPageState extends State<IEDashboardPage> {
                 fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15))
       ]),
     );
+  }
+
+  Widget _createMeterInfo() {
+    return Padding(
+        padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Icon(Icons.arrow_back), Text("12223"), Text("4222256")],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("Fllor 1"), Icon(Icons.arrow_forward)],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _createPaymentRow(String val1, String val2, String val3, String val4) {
