@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intro_energy/models/IEConsumptionModel.dart';
 import 'package:intro_energy/models/IEPaymentModel.dart';
 
 import 'IENetworkConstants.dart';
@@ -26,6 +27,6 @@ class IENetworkManager {
 
   static fetchConsumptionList(String url) async {
     var map = await _makeGetRequest(url);
-    return Test.fromJson(map).data;
+    return IEConsumptionModel.fromJson(map).consumption;
   }
 }

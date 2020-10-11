@@ -1,32 +1,32 @@
-class ConsumptionModel {
-  List<Data> _data;
+class IEConsumptionModel {
+  List<Consumption> _consumption;
 
-  ConsumptionModel({List<Data> data}) {
-    this._data = data;
+  IEConsumptionModel({List<Consumption> consumption}) {
+    this._consumption = consumption;
   }
 
-  List<Data> get data => _data;
-  set data(List<Data> data) => _data = data;
+  List<Consumption> get consumption => _consumption;
+  set consumption(List<Consumption> consumption) => _consumption = consumption;
 
-  ConsumptionModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      _data = new List<Data>();
-      json['data'].forEach((v) {
-        _data.add(new Data.fromJson(v));
+  IEConsumptionModel.fromJson(Map<String, dynamic> json) {
+    if (json['Consumption'] != null) {
+      _consumption = new List<Consumption>();
+      json['Consumption'].forEach((v) {
+        _consumption.add(new Consumption.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this._data != null) {
-      data['data'] = this._data.map((v) => v.toJson()).toList();
+    if (this._consumption != null) {
+      data['Consumption'] = this._consumption.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Data {
+class Consumption {
   String _id;
   String _createdOn;
   String _amout;
@@ -34,7 +34,7 @@ class Data {
   String _consumption;
   String _unit;
 
-  Data(
+  Consumption(
       {String id,
         String createdOn,
         String amout,
@@ -62,7 +62,7 @@ class Data {
   String get unit => _unit;
   set unit(String unit) => _unit = unit;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Consumption.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _createdOn = json['createdOn'];
     _amout = json['amout'];
