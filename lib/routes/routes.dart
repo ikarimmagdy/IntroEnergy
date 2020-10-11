@@ -5,6 +5,7 @@ import 'package:intro_energy/ui/screens/login/IELoginPage.dart';
 import 'package:intro_energy/ui/screens/meters/IEMetersPage.dart';
 import 'package:intro_energy/ui/screens/payment/IEPaymentsPage.dart';
 import 'package:intro_energy/ui/screens/splash/IESplashPage.dart';
+import 'package:intro_energy/ui/screens/support/IESupportPage.dart';
 
 class Routes {
   static const String dashboard = IEDashboardPage.routeName;
@@ -14,4 +15,5 @@ class Routes {
   static const String history = IEHistoryPage.routeName;
   static const String splash = IESplashPage.routeName;
   static const String login = IELoginPage.routeName;
+  static const String support = IESupportPage.routeName;
 }

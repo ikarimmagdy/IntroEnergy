@@ -20,7 +20,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
     return new Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Dashboard"),
+          title: Text("Dashboard",style: TextStyle(color: Colors.white)),
         ),
         drawer: IESideMenu(),
         body: _createBody());
@@ -69,7 +69,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
                                       value,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.lightGreen,
+                                          color: Colors.green,
                                           fontSize: 15),
                                     )),
                               ),
@@ -82,7 +82,7 @@ class _DashboardPageState extends State<IEDashboardPage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.lightGreen,
-                                          fontSize: 20),
+                                          fontSize: 18),
                                     )),
                               )
                             ],
@@ -210,12 +210,12 @@ class _DashboardPageState extends State<IEDashboardPage> {
       padding: EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Column(children: [
-          _createTitle("Meter Info"),
+          _createTitle("Meter Info",Icons.ac_unit),
           _createMeterInfo(),
-          _createTitle("Latest Payments"),
+          _createTitle("Latest Payments",Icons.payment),
           _createBalance(),
           _createPaymentList(),
-          _createTitle("Latest Consumptions"),
+          _createTitle("Latest Consumptions",Icons.invert_colors_on_sharp),
           _createTarrif(),
           _createtConsumpionList()
         ]),
@@ -230,14 +230,15 @@ class _DashboardPageState extends State<IEDashboardPage> {
         children: [Text(val1), Text(val2), Text(val3), Text(val4)]);
   }
 
-  Widget _createTitle(String title) {
+  Widget _createTitle(String title, IconData icon) {
     return Container(
-      height: 30,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      height: 40,
       color: Colors.black12,
       child: Padding(
         padding: EdgeInsets.fromLTRB(0,0,5,0),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Padding(padding: EdgeInsets.all(5), child: Icon(Icons.payment)),
+          Padding(padding: EdgeInsets.all(5), child: Icon(icon)),
           Text(
             title,
             style: TextStyle(
@@ -301,42 +302,45 @@ class _DashboardPageState extends State<IEDashboardPage> {
   }
 
   Widget _createMeterInfo() {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              flex: 1,
-              child: Column(
-                children: [
-                  Padding(
-                    padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Icon(Icons.arrow_back), Text("12223"), Text("4222256")],
-                    ),
-                  )
-                ],
+    return Container(
+      margin: EdgeInsets.fromLTRB(0,0, 0, 10),
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Icon(Icons.arrow_back), Text("12223"), Text("4222256")],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text("Fllor 1"), Icon(Icons.arrow_forward)],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ));
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text("Fllor 1"), Icon(Icons.arrow_forward)],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
   }
 
   Widget _createPaymentRow(String val1, String val2, String val3, String val4) {
@@ -358,17 +362,17 @@ Widget _createCard2(String val1, String val2, String val3, String val4) {
               children: [
               Text("Date: ",style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: Colors.black26,
-                  fontSize: 18),
+                  color: Colors.black54,
+                  fontSize: 15),
               ),
               Text("Consumtion:",style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: Colors.black26,
-                  fontSize: 18)),
+                  color: Colors.black54,
+                  fontSize: 15)),
               Text("Reading:",style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: Colors.black26,
-                  fontSize: 18)),
+                  color: Colors.black54,
+                  fontSize: 15)),
             ],),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,16 +380,16 @@ Widget _createCard2(String val1, String val2, String val3, String val4) {
               Text(val2,style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Colors.green,
-                  fontSize: 18),
+                  fontSize: 15),
               ),
               Text(val3,style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Colors.blueAccent,
-                  fontSize: 18)),
+                  fontSize: 15)),
               Text(val4,style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Colors.red,
-                  fontSize: 18)),
+                  fontSize: 15)),
             ],),
           ],),
       )

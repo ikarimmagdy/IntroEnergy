@@ -15,7 +15,7 @@ class _IEConsumptionsState extends State<IEConsumptionsPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
-          title: Text("Consumptions"),
+          title: Text("Consumptions",style: TextStyle(color: Colors.white)),
         ),
         drawer: IESideMenu(),
         body: Padding(padding: EdgeInsets.all(10), child: _createList()));

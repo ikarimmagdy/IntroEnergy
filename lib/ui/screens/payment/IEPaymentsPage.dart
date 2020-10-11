@@ -16,7 +16,7 @@ class _IEPaymentPageState extends State<IEPaymentsPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
-          title: Text("Payments"),
+          title: Text("Payments",style: TextStyle(color: Colors.white)),
         ),
         drawer: IESideMenu(),
         body: Center(child: Text("Events")));

@@ -16,7 +16,7 @@ class _IEHistoryPageState extends State<IEHistoryPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
-          title: Text("History"),
+          title: Text("History",style: TextStyle(color: Colors.white)),
         ),
         drawer: IESideMenu(),
         body: Center(child: Text("Events")));

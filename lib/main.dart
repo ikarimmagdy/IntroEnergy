@@ -7,6 +7,7 @@ import 'package:intro_energy/ui/screens/login/IELoginPage.dart';
 import 'package:intro_energy/ui/screens/meters/IEMetersPage.dart';
 import 'package:intro_energy/ui/screens/payment/IEPaymentsPage.dart';
 import 'package:intro_energy/ui/screens/splash/IESplashPage.dart';
+import 'package:intro_energy/ui/screens/support/IESupportPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         Routes.history: (context) => IEHistoryPage(),
         Routes.splash: (context) => IESplashPage(),
         Routes.login: (context) => IELoginPage(),
+        Routes.support: (context) => IESupportPage(),
       },
     );
   }

@@ -35,7 +35,8 @@ class IESideMenu extends StatelessWidget {
               text: 'History',
               onTap: () =>
                   Navigator.pushReplacementNamed(context, Routes.history)),
-          _createDrawerItem(icon: Icons.account_box, text: 'Support'),
+          _createDrawerItem(icon: Icons.account_box, text: 'Support',onTap: () =>
+              Navigator.pushReplacementNamed(context, Routes.support)),
           Divider(),
           ListTile(
             title: Text('Version - 0.0.1'),
