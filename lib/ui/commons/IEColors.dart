@@ -7,4 +7,5 @@ class IEColors {
   static const  Color AppColorbrown =  Color(0xFFA63446);
 
   static const  Color AppColorWight =  Color(0xFFFFFFFF);
+  static const  Color AppColorBlack =  Color(0x00000000);
 }

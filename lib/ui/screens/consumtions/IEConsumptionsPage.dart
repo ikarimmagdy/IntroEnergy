@@ -1,213 +1,213 @@
 import 'package:flutter/material.dart';
-import 'package:intro_energy/ui/screens/dashboard/IESideMenu.dart';
+import 'package:intro_energy/ui/commons/ThemeText.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-class IEConsumptionsPage extends StatefulWidget {
-  static const String routeName = '/consumptions';
+class IEConsumptionPage extends StatefulWidget {
+  static const String routeName = '/consumption';
+
 
   @override
-  State<StatefulWidget> createState() {
-    return _IEConsumptionsState();
-  }
+  IEConsumptionPageState createState() => IEConsumptionPageState.withSampleData();
+
+
 }
 
-class _IEConsumptionsState extends State<IEConsumptionsPage> {
+class IEConsumptionPageState extends State<IEConsumptionPage>
+    with SingleTickerProviderStateMixin {
+  final List<charts.Series> seriesList;
+  final bool animate;
+
+  TabController tabController;
+  IEConsumptionPageState({this.seriesList, this.animate});
+  factory IEConsumptionPageState.withSampleData() {
+    return new IEConsumptionPageState(
+      seriesList: _createSampleData(),
+      animate: true,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          title: Text("Consumptions",style: TextStyle(color: Colors.white)),
+          flexibleSpace: SafeArea(
+            child:  getTabBar(),
+          ),
         ),
-        drawer: IESideMenu(),
-        body: Padding(padding: EdgeInsets.all(10), child: _createList()));
+        body: getTabBarPages());
   }
 
-  Widget _createDataTable() {
-    return DataTable(columns: [
-      DataColumn(label: Text("")),
-      DataColumn(label: Text("")),
-      DataColumn(label: Text("")),
-    ], rows: [
-      DataRow(cells: [DataCell(Text("sdsdsd"))])
+  Widget oldWidget() {
+    return ListView(
+      children: [
+        Container(
+          color: Colors.lightBlueAccent,
+          width: 250,
+          height: 250,
+          child: _buildChart(),
+        ),
+        _buildListItem1(),
+        _buildListItem1(),
+        _buildListItem1()
+      ],
+    );
+  }
+
+  Widget getTabBar() {
+    return TabBar(controller: tabController, tabs: [
+      Tab(text: "3 MONTHS",),
+      Tab(text: "6 MONTHS",),
+      Tab(text: "12 MONTHS",),
     ]);
   }
-}
 
-Widget _createList() {
-  return Column(
-    children: [
-      _createTitle("Meter Info"),
-      _createMeterInfo(),
-      ListView.builder(
-      shrinkWrap: true,
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return _createCard();
-      },
-    )],
-  );
-}
+  Widget getTabBarPages() {
+    return TabBarView(controller: tabController, children: <Widget>[
+      oldWidget(),
+      oldWidget(),
+      oldWidget(),
+    ]);
+  }
 
-Widget _createCard() {
-  return Card(
-    child: Padding(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+
+  Widget _buildChart() {
+    return new charts.BarChart(
+      seriesList,
+      animate: animate,
+      barGroupingType: charts.BarGroupingType.grouped,
+      // Add the series legend behavior to the chart to turn on series legends.
+      // By default the legend will display above the chart.
+      behaviors: [new charts.SeriesLegend()],
+    );
+  }
+
+  /// Create series list with multiple series
+  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+    final desktopSalesData = [
+      new OrdinalSales('10', 50),
+      new OrdinalSales('09', 200),
+      new OrdinalSales('08', 10),
+    ];
+
+    final tabletSalesData = [
+      new OrdinalSales('10', 25),
+      new OrdinalSales('09', 50),
+      new OrdinalSales('08', 10),
+    ];
+
+
+    return [
+      new charts.Series<OrdinalSales, String>(
+        id: 'Consumption',
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: desktopSalesData,
+      ),
+      new charts.Series<OrdinalSales, String>(
+        id: 'Cost',
+        domainFn: (OrdinalSales sales, _) => sales.year,
+        measureFn: (OrdinalSales sales, _) => sales.sales,
+        data: tabletSalesData,
+      ),
+    ];
+  }
+
+
+
+
+  Widget _buildListItem1() {
+    var card = Card(
+      child: ListTile(
+        leading: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-          Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                Text("Start: ",style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
-                    fontSize: 15),
-                ),
-                Text("Cost:",style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
-                    fontSize: 15)),
-                Text("Month:"),
-              ],),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  Text("0 KWh ",style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.blueAccent,
-                      fontSize: 15),
-                  ),
-                  Text("534.89 KWh ",style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.green,
-                      fontSize: 15)),
-                  Text("June 2020"),
-                ],),
-              )
-            ],
-          ),
-          Text("View invoice",style: TextStyle(
-              fontWeight: FontWeight.normal,
-              color: Colors.black12,
-              fontSize: 15),
-          ),
-
-        ],),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Current: ",style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        fontSize: 15),
-                    ),
-                    Text("Cons.:",style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        fontSize: 15)),
-                    Text("Reading:"),
-                  ],),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("534 KWh ",style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.red,
-                          fontSize: 15),
-                      ),
-                      Text("534.89 EGP ",style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.blueAccent,
-                          fontSize: 15)),
-                      Text("30-06-2020"),
-                    ],),
-                )
-              ],
+            Text(
+              "03",
+              style: ThemeText.normalTextBlack,
             ),
-          Text("Download",style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.lightGreen,
-              fontSize: 15),
-          ),
-        ],)
-      ],),
-    )
-  );
-}
-
-Widget _createMeterInfo() {
-  return Padding(
-      padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 1,
-            child: Column(
-              children: [
-                Padding(
-                  padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Icon(Icons.arrow_back), Text("12223"), Text("4222256")],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Fllor 1"), Icon(Icons.arrow_forward)],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ));
-}
-
-Widget _createTitle(String title) {
-  return Container(
-    color: Colors.black12,
-    child: Padding(
-      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Icon(Icons.payment),
-        Text(
-          title,
-          style: TextStyle(
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
-              fontSize: 15),
+            Text("NOV", style: ThemeText.minGray)
+          ],
         ),
-      ]),
-    ),
-  );
+        title: Text(
+          "524 KWh",
+          style: ThemeText.normalTextBlack,
+        ),
+        subtitle: Text("01:2040", style: ThemeText.minGray),
+        trailing: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "EGP 700.00",
+              style: ThemeText.normalTextBlack,
+            ),
+            //Text("Cash", style: ThemeText.minGray)
+          ],
+        ),
+      ),
+    );
+    return card;
+  }
+
+  Widget top() {
+    var widget = Container(
+        color: Colors.green,
+        height: 70,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Total",
+                  style: ThemeText.minGray,
+                ),
+                Text(
+                  "1289 KWh",
+                  style: ThemeText.normalTextWight,
+                )
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Date",
+                  style: ThemeText.minGray,
+                ),
+                Text(
+                  "27-9-2020",
+                  style: ThemeText.normalTextWight,
+                )
+              ],
+            )
+          ],
+        ));
+    return widget;
+  }
+
+
+} //end of State Class
+
+/// Sample ordinal data type.
+class OrdinalSales {
+  final String year;
+  final int sales;
+
+  OrdinalSales(this.year, this.sales);
 }
